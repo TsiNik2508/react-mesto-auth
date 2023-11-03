@@ -25,11 +25,6 @@ function Login({ onSubmit, onTokenCheck, onLoading }) {
     }
   }
 
-  // Эффект для проверки токена и автоматической авторизации
-  useEffect(() => {
-    onTokenCheck();
-  }, []);
-
   // Отрисовываем компонент формы входа с переданными параметрами
   return (
     <RegForm

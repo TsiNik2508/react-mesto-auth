@@ -1,3 +1,7 @@
+import React from 'react';
+import successIcon from '../images/success-icon.png';
+import failIcon from '../images/fail-icon.png';
+
 function InfoTooltip({
   name,
   isOpen,
@@ -14,14 +18,10 @@ function InfoTooltip({
     >
       <div className="popup__container">
         <div className="popup__tool-content">
-          <img
-            className="popup__tool-image"
-            src={
-              registered
-                ? require("../images/success-icon.png")
-                : require("../images/fail-icon.png")
-            }
-            alt="статус отправки"
+        <img 
+            className="popup__tool-image" 
+            src={registered ? successIcon : failIcon}
+            alt="статус отправки" 
           />
           <h2 className="popup__title popup__tool-title">
             {registered
