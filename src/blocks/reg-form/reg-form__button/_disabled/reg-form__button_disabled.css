@@ -1,0 +1,11 @@
+.reg-form__button_disabled {
+  opacity: .2;
+  border: 1px solid #fff;
+  color: #fff;
+  background-color: transparent;
+}
+
+.reg-form__button_disabled:hover {
+  cursor: default;
+  background-color: transparent;
+}

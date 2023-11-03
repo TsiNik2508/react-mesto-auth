@@ -1,0 +1,10 @@
+.reg-form__input-error {
+  margin: 5px 0 0 0;
+  padding: 0;
+  min-height: 30px;
+  font-size: 12px;
+  line-height: 1.25;
+  font-weight: 400;
+  display: block;
+  color: #FF0000;
+}
