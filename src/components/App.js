@@ -44,48 +44,6 @@ function App() {
     isConfirmPopupOpen ||
     isImagePopupOpen;
 
-  // Используем хук useEffect для выполнения запросов к API при загрузке компонента
-  useEffect(() => {
-    // Получаем список начальных карточек и информацию о пользователе
-    api
-      .getInitialCards()
-      .then((cardList) => {
-        setCards(cardList);
-      })
-      .catch((err) => console.log(err));
-
-    api
-      .getUserInfo()
-      .then((userInfo) => {
-        setCurrentUser(userInfo);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
-  // Эффект для проверки токена и автоматической авторизации
-  useEffect(() => {
-    // Получаем токен из локального хранилища
-    const token = localStorage.getItem("token");
-
-    if (token) {
-      reg
-        .getContent(token)
-        .then((res) => {
-          if (res) {
-            setLoggedIn(true);
-            handleLogin(res.data.email);
-            navigate("/");
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      navigate("/sign-in");
-    }
-  }, [navigate]);
-
-
   // Функция для закрытия всех попапов
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
@@ -285,6 +243,7 @@ function App() {
       });
   }
 
+
   // Функция для выхода пользователя из системы
   function handleLogout() {
     localStorage.removeItem("token");
@@ -308,9 +267,9 @@ function App() {
             onLogout={handleLogout}
           />
 
-          <Routes>
-            <ProtectedRoute
-              path="/"
+          <Routes >
+            <ProtectedRoute 
+              path="/" 
               element={
                 <Main
                   cards={cards}
@@ -328,7 +287,6 @@ function App() {
               element={
                 <Register
                   onSubmit={handleRegisterSubmit}
-                  onTokenCheck={handleTokenCheck}
                   onLoading={isLoading}
                 />
               }
@@ -338,7 +296,6 @@ function App() {
               element={
                 <Login
                   onSubmit={handleLoginSubmit}
-                  onTokenCheck={handleTokenCheck}
                   onLoading={isLoading}
                 />
               }
