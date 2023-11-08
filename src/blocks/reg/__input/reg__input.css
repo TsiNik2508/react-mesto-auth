@@ -1,0 +1,20 @@
+.reg__input {
+  margin: 0 auto 26px;
+  padding: 0;
+  width: 358px;
+  height: 30px;
+  background-color: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(204, 204, 204, 1);
+  outline: none;
+  color: #fff;
+}
+
+.reg__input::placeholder {
+  font-size: 14px;
+  color: #ccc;
+}
+
+.reg__input:last-of-type {
+  margin-bottom: 217px;
+}

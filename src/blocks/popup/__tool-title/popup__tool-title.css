@@ -1,5 +1,6 @@
-.popup__tooltip-title {
-  margin: 32px 0 0 0;
-  max-width: 358px;
+.popup__tool-title{
+  margin: 0 auto 60px;
+  width: 358px;
+  color: black;
   text-align: center;
 }

@@ -1,9 +1,0 @@
-.reg-form {
-	margin-top: 60px;
-  padding: 0 30px;
-	display: flex;
-  flex-direction: column;
-	width: 100%;
-	max-width: 418px;
-	box-sizing: border-box;
-}

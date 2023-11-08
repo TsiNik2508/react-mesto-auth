@@ -37,8 +37,9 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://github.com/TsiNik2508/react-mesto-auth/",
+  "homepage": "https://tsinik2508.github.io/react-mesto-auth//",
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "gh-pages": "^5.0.0"
   }
 }

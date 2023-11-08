@@ -1,46 +1,28 @@
-import React from 'react';
-import successIcon from '../images/success-icon.png';
-import failIcon from '../images/fail-icon.png';
+import React from "react";
+import successIcon from "../images/success-icon.png";
+import failIcon from "../images/fail-icon.png";
 
-function InfoTooltip({
-  name,
-  isOpen,
-  registered,
-  onClose,
-  onOverlayClick,
-  onTransitionEnd,
-}) {
+export default function InfoTooltip({ onClose, isOpen, loginStatus }) {
   return (
-    <div
-      className={`popup popup_${name} ${isOpen && "popup_opened"}`}
-      onClick={onOverlayClick}
-      onTransitionEnd={onTransitionEnd}
-    >
+    <div className={`popup popup__info-tool ${isOpen ? "popup_opened" : ""}`}>
       <div className="popup__container">
-        <div className="popup__tool-content">
-        <img 
-            className="popup__tool-image" 
-            src={registered ? successIcon : failIcon}
-            alt="статус отправки" 
-          />
-          <h2 className="popup__title popup__tool-title">
-            {registered
-              ? "Вы успешно зарегистрировались!"
-              : `Что-то пошло не так!
-Попробуйте ещё раз.`}
-          </h2>
-        </div>
-
         <button
+          className="button popup__close"
+          aria-label="Close"
           type="button"
-          className="popup__close-button"
-          onClick={() => {
-            onClose(true);
-          }}
+          onClick={onClose}
         ></button>
+        <img
+          className="popup__tool-image"
+          src={loginStatus ? successIcon : failIcon}
+          alt="Статус входа"
+        />
+        <h2 className="popup__tool-title">
+          {loginStatus
+            ? "Вы успешно зарегистрировались!"
+            : "Что-то пошло не так! Попробуйте еще раз."}
+        </h2>
       </div>
     </div>
   );
 }
-
-export default InfoTooltip;

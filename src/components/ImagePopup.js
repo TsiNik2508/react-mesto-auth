@@ -12,7 +12,7 @@ function ImagePopup({
       onTransitionEnd={onTransitionEnd} // Обрабатываем завершение анимации
     >
       <div className="popup__card">
-        <img src={card.link} alt={card.name} className="popup__img" /> // Отображаем изображение из карточки.
+        <img src={card?.link} alt={card?.name} className="popup__img" /> 
         <button
           type="button"
           className="popup__close popup__close-card"

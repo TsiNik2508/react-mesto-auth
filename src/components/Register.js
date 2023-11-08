@@ -1,69 +1,64 @@
-import { useEffect } from "react";
-import FormValidation from "./FormValidation";
-import RegForm from "./RegForm";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
-function Register({ onSubmit, onTokenCheck, onLoading }) {
-  const { values, errors, isValid, handleChange, setValue, formRef } =
-    FormValidation();
+// Экспортируем функциональный компонент Register, принимающий пропс `onRegister`
+export default function Register({ onRegister }) {
+  // Используем хук `useState` для создания состояния `userData`
+  const [userData, setUserData] = useState({});
 
-  // Сбрасываем значения почты и пароля
-  useEffect(() => {
-    setValue("email", "");
-    setValue("password", "");
-  }, [setValue]);
-
-  // Функция для обработки отправки формы
-  function handleSubmit(e) {
-    e.preventDefault();
-    if (isValid) {
-      const { password, email } = values;
-      onSubmit(password, email);
+  // Обработчик отправки формы
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    // Извлекаем пароль и почту
+    const { email, password } = userData;
+    // Проверяем заполненость
+    if (!email || !password) {
+      return;
     }
+    // Вызываем переданную функцию с данными
+    onRegister(userData);
   }
 
-  // Проверяем наличие токена 
-  useEffect(() => {
-    onTokenCheck();
-  }, []);
+  // Обработчик изменения полей формы
+  function handleChange(evt) {
+    const { name, value } = evt.target;
+    // Обновляем `userData`, для сохранения предыдущих значений
+    setUserData({
+      ...userData,
+      [name]: value,
+    });
+  }
 
+  // Возвращаем разметку компонента
   return (
-    <RegForm
-      title="Регистрация"
-      name="register"
-      buttonText="Зарегистрироваться"
-      buttonTextOnLoading="Регистрация..."
-      linkText="Уже зарегистрированы? Войти"
-      handleSubmit={handleSubmit}
-      onLoading={onLoading}
-      isValid={isValid}
-      ref={formRef}
-    >
-      <input
-        type="email"
-        minLength="2"
-        maxLength="30"
-        required
-        placeholder="Email"
-        className="reg-form__input"
-        onChange={handleChange}
-        name="email"
-        value={values["email"] ?? ""}
-      />
-      <span className="reg-form__input-error">{errors.email}</span>
-      <input
-        type="password"
-        minLength="2"
-        maxLength="30"
-        required
-        placeholder="Пароль"
-        className="reg-form__input"
-        onChange={handleChange}
-        name="password"
-        value={values["password"] ?? ""}
-      />
-      <span className="reg-form__input-error">{errors.password}</span>
-    </RegForm>
+    <>
+      <div className="reg">
+        <h2 className="reg__title">Регистрация</h2>
+        <form className="reg__form" onSubmit={handleSubmit} noValidate>
+          <input
+            name='email'
+            className="reg__input"
+            type="email"
+            placeholder="Email"
+            value={userData.email || ''}
+            onChange={handleChange}
+          />
+          <input
+            name='password'
+            className="reg__input"
+            type="password"
+            placeholder="Пароль"
+            value={userData.password || ''}
+            onChange={handleChange}
+          />
+          <button className="reg__button" type="submit">
+            Зарегистрироваться
+          </button>
+        </form>
+        <Link className="reg__link" to="/sign-in">
+          Уже зарегистррованы? Войти
+        </Link>
+      </div>
+    </>
   );
 }
-
-export default Register;

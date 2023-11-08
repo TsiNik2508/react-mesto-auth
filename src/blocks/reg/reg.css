@@ -1,0 +1,6 @@
+.reg {
+  margin: 60px auto auto;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}

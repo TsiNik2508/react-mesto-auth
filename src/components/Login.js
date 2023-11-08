@@ -1,68 +1,57 @@
-import { useEffect } from "react";
-import FormValidation from "./FormValidation"; 
-import RegForm from "./RegForm"; 
+import { useState } from "react";
 
-function Login({ onSubmit, onTokenCheck, onLoading }) {
-  // Используем хук FormValidation для управления состоянием формы и валидации
-  const { values, errors, isValid, handleChange, setValue, formRef } = FormValidation();
+export default function Login({ onLogin }) {
+  const [userData, setUserData] = useState({});
 
-  // Эффект для сброса значений
-  useEffect(() => {
-    setValue("email", "");
-    setValue("password", "");
-  }, [setValue]);
-
-  // Обработчик отправки формы
-  function handleSubmit(e) {
-    e.preventDefault();
-    if (isValid) {
-      const { password, email } = values;
-      if (!password || !email) {
-        return;
-      }
-      // Вызываем функцию данными пользователя
-      onSubmit(password, email);
-    }
+  // Обработчик изменения значений в полях ввода
+  function handleInputChange(evt) {
+    const { name, value } = evt.target;
+    setUserData({
+      ...userData,
+      [name]: value
+    })
   }
 
-  // Отрисовываем компонент формы входа с переданными параметрами
+  // Обработчик отправки формы
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    const { email, password } = userData;
+
+    // Проверка наличия введенных данных
+    if (!email || !password) {
+      return;
+    }
+
+    // Вызов функции для входа пользователя
+    onLogin(userData);
+  }
+
   return (
-    <RegForm
-      title="Вход"
-      name="login"
-      buttonText="Войти"
-      buttonTextOnLoading="Вход..."
-      handleSubmit={handleSubmit}
-      onLoading={onLoading}
-      isValid={isValid}
-      ref={formRef}
-    >
-      <input
-        type="email"
-        minLength="2"
-        maxLength="30"
-        required
-        placeholder="Email"
-        className="reg-form__input"
-        onChange={handleChange}
-        name="email"
-        value={values["email"] ?? ""}
-      />
-      <span className="reg-form__input-error">{errors.email}</span>
-      <input
-        type="password"
-        minLength="2"
-        maxLength="30"
-        required
-        placeholder="Пароль"
-        className="reg-form__input"
-        onChange={handleChange}
-        name="password"
-        value={values["password"] ?? ""}
-      />
-      <span className="reg-form__input-error">{errors.password}</span>
-    </RegForm>
+    <>
+      <div className="reg">
+        <h2 className="reg__title">Вход</h2>
+        <form className="reg__form" onSubmit={handleSubmit} noValidate>
+          <input
+            name="email"
+            className="reg__input"
+            type="Email"
+            placeholder="Email"
+            value={userData.email || ''}
+            onChange={handleInputChange}
+          />
+          <input
+            name="password"
+            className="reg__input"
+            type="password"
+            placeholder="Пароль"
+            value={userData.password || ''}
+            onChange={handleInputChange}
+          />
+          <button className="reg__button" type="submit">
+            Войти
+          </button>
+        </form>
+      </div>
+    </>
   );
 }
-
-export default Login;

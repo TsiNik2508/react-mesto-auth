@@ -1,4 +1,6 @@
-.popup__tool-image {
+.popup__tool-image{
+  margin: 60px auto 32px;
+  padding: 0;
   display: block;
   width: 120px;
   height: 120px;
